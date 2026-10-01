@@ -1,0 +1,7 @@
+username,ipAddress,eventType,failedAttempts,country,message
+admin,10.0.0.10,LOGIN,0,IN,Successful login from office
+john,10.0.0.20,LOGIN,5,IN,Repeated failed login attempts
+finance,185.22.14.8,EMAIL,1,XX,URGENT verify your account and click here to confirm password
+developer,10.0.0.30,PROCESS,2,IN,powershell downloaded suspicious executable payload
+user1,10.0.0.44,LOGIN,1,IN,Normal login
+attacker,185.99.10.3,PROCESS,7,XX,ransomware payload powershell reverse shell

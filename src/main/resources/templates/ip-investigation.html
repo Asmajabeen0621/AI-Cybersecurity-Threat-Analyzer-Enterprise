@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IP Investigation | CyberShield AI</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        body {
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        .page {
+            max-width: 1450px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .back-link {
+            color: #2563eb;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .subtitle {
+            color: #667085;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .card,
+        .panel {
+            background: white;
+            border: 1px solid #e5e9f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(25,40,70,.04);
+        }
+
+        .card {
+            padding: 22px;
+        }
+
+        .card small {
+            color: #667085;
+        }
+
+        .card strong {
+            display: block;
+            font-size: 30px;
+            margin-top: 12px;
+        }
+
+        .panel {
+            padding: 24px;
+            margin-bottom: 22px;
+        }
+
+        .panel h2 {
+            margin-top: 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #edf0f4;
+            border-radius: 10px;
+        }
+
+        .detail-item span {
+            display: block;
+            color: #667085;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #526078;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            padding: 7px 10px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .blocked {
+            background: #fef2f2;
+            color: #b42318;
+        }
+
+        .active {
+            background: #ecfdf3;
+            color: #087443;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #98a2b3;
+        }
+
+        .ip {
+            font-family: Consolas, monospace;
+            font-weight: 700;
+        }
+
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+
+        .analytics-card {
+            background: #ffffff;
+            border: 1px solid #e5e9f0;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 18px rgba(25,40,70,.04);
+        }
+
+        .analytics-card h3 {
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        .analytics-card p {
+            color: #667085;
+            font-size: 13px;
+            margin-top: 0;
+        }
+
+        .chart-box {
+            position: relative;
+            height: 270px;
+        }
+
+        .country-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f8fafc;
+            border: 1px solid #edf0f4;
+            border-radius: 10px;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .timeline-item {
+            border-left: 3px solid #2563eb;
+            background: #f8fafc;
+            padding: 13px 16px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .timeline-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item small {
+            color: #667085;
+        }
+
+        @media (max-width: 900px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 18px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cards,
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .timestamp {
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="topbar">
+
+        <div>
+            <a href="/" class="back-link">
+                ← Back to Dashboard
+            </a>
+
+            <h1>IP Investigation Profile</h1>
+
+            <p class="subtitle">
+                Detailed security activity for the selected IP address.
+            </p>
+        </div>
+
+        <div>
+            <span th:if="${isBlocked}"
+                  class="badge blocked">
+                🔒 BLOCKED
+            </span>
+
+            <span th:unless="${isBlocked}"
+                  class="badge active">
+                ● ACTIVE
+            </span>
+        </div>
+
+    </div>
+
+    <!-- STATISTICS -->
+
+    <section class="cards">
+
+        <div class="card">
+            <small>Total Security Logs</small>
+            <strong th:text="${totalLogs}">0</strong>
+        </div>
+
+        <div class="card">
+            <small>Total Threat Alerts</small>
+            <strong th:text="${totalAlerts}">0</strong>
+        </div>
+
+        <div class="card">
+            <small>Unresolved Alerts</small>
+            <strong th:text="${unresolvedAlerts}">0</strong>
+        </div>
+
+        <div class="card">
+            <small>Highest Risk Score</small>
+            <strong th:text="${highestRiskScore}">0</strong>
+        </div>
+
+    </section>
+
+    <!-- IP DETAILS -->
+
+    <section class="panel">
+
+        <h2>IP Address Details</h2>
+
+        <div class="details-grid">
+
+            <div class="detail-item">
+                <span>IP Address</span>
+                <strong class="ip"
+                        th:text="${ipAddress}">
+                    -
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Risk Level</span>
+                <strong th:text="${riskLevel}">
+                    LOW
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Blocked Status</span>
+                <strong th:text="${isBlocked ? 'Blocked' : 'Not Blocked'}">
+                    Not Blocked
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Highest Risk Score</span>
+                <strong th:text="${highestRiskScore}">
+                    0
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Blocked At</span>
+                <strong th:text="${blockedDetails != null ? blockedDetails.blockedAt : 'Not applicable'}">
+                    Not applicable
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Block Reason</span>
+                <strong th:text="${blockedDetails != null ? blockedDetails.reason : 'No blocking record'}">
+                    No blocking record
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- IP INVESTIGATION ANALYTICS -->
+
+    <section class="analytics-grid">
+
+        <div class="analytics-card">
+            <h3>📈 Risk Trend</h3>
+            <p>Risk scores recorded for this IP address.</p>
+            <div class="chart-box">
+                <canvas id="riskTrendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="analytics-card">
+            <h3>🛡️ Threat Type Distribution</h3>
+            <p>Threat categories detected for this IP address.</p>
+            <div class="chart-box">
+                <canvas id="threatTypeChart"></canvas>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="panel">
+        <h2>🌍 Country Information</h2>
+        <div class="country-box">
+            <span>📍</span>
+            <span th:text="${!#lists.isEmpty(ipLogs) ? ipLogs[0].country : 'Unknown'}">Unknown</span>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>🕒 Suspicious Activity Timeline</h2>
+        <div class="timeline" th:if="${!#lists.isEmpty(ipAlerts)}">
+            <div class="timeline-item" th:each="a : ${ipAlerts}">
+                <strong th:text="${a.threatType + ' • ' + a.severity}">Threat • HIGH</strong>
+                <small class="timestamp" th:text="${#temporals.format(a.detectedAt, 'dd MMM yyyy, hh:mm a')}">Date</small>
+                <div th:text="${a.explanation}">Threat explanation</div>
+            </div>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(ipAlerts)}">
+            No suspicious activity recorded for this IP address.
+        </div>
+    </section>
+
+    <!-- THREAT ALERT HISTORY -->
+
+    <section class="panel">
+
+        <h2>Threat Alert History</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                <tr>
+                    <th>Detected At</th>
+                    <th>User</th>
+                    <th>Threat Type</th>
+                    <th>ML Prediction</th>
+                    <th>Risk Score</th>
+                    <th>Severity</th>
+                    <th>Resolved</th>
+                    <th>Response</th>
+                    <th>Explanation</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="a : ${ipAlerts}">
+
+                    <td class="timestamp" th:text="${#temporals.format(a.detectedAt, 'dd MMM yyyy, hh:mm a')}">-</td>
+
+                    <td th:text="${a.username}">-</td>
+
+                    <td th:text="${a.threatType}">-</td>
+
+                    <td th:text="${a.mlPrediction}">-</td>
+
+                    <td th:text="${a.riskScore}">0</td>
+
+                    <td th:text="${a.severity}">LOW</td>
+
+                    <td th:text="${a.resolved ? 'Yes' : 'No'}">
+                        No
+                    </td>
+
+                    <td th:text="${a.responseApplied ? 'Applied' : 'Not Applied'}">
+                        Not Applied
+                    </td>
+
+                    <td th:text="${a.explanation}">-</td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(ipAlerts)}">
+
+                    <td colspan="9" class="empty">
+                        No threat alerts found for this IP address.
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- SECURITY LOG HISTORY -->
+
+    <section class="panel">
+
+        <h2>Security Log History</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Event Type</th>
+                    <th>Failed Attempts</th>
+                    <th>Country</th>
+                    <th>Message</th>
+                    <th>Analyzed</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="l : ${ipLogs}">
+
+                    <td class="timestamp" th:text="${#temporals.format(l.timestamp, 'dd MMM yyyy, hh:mm a')}">-</td>
+
+                    <td th:text="${l.username}">-</td>
+
+                    <td th:text="${l.eventType}">-</td>
+
+                    <td th:text="${l.failedAttempts}">0</td>
+
+                    <td th:text="${l.country}">-</td>
+
+                    <td th:text="${l.message}">-</td>
+
+                    <td th:text="${l.analyzed ? 'Yes' : 'No'}">
+                        No
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(ipLogs)}">
+
+                    <td colspan="7" class="empty">
+                        No security logs found for this IP address.
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <div class="footer-note">
+        CyberShield AI • Local ML Security Analytics
+    </div>
+
+</div>
+
+
+<!-- ANALYTICS CHARTS -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:inline="javascript">
+    const riskLabels = [
+        /*[# th:each="a : ${ipAlerts}"]*/
+        [[${#temporals.format(a.detectedAt, 'dd MMM HH:mm')}]],
+        /*[/]*/
+    ];
+
+    const riskScores = [
+        /*[# th:each="a : ${ipAlerts}"]*/
+        [[${a.riskScore}]],
+        /*[/]*/
+    ];
+
+    const threatTypes = [
+        /*[# th:each="a : ${ipAlerts}"]*/
+        [[${a.threatType}]],
+        /*[/]*/
+    ];
+
+    const typeCounts = {};
+    threatTypes.forEach(type => {
+        const key = String(type || 'UNKNOWN');
+        typeCounts[key] = (typeCounts[key] || 0) + 1;
+    });
+
+    new Chart(document.getElementById('riskTrendChart'), {
+        type: 'line',
+        data: {
+            labels: riskLabels,
+            datasets: [{
+                label: 'Risk Score',
+                data: riskScores,
+                borderWidth: 3,
+                tension: 0.3,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, suggestedMax: 100 }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('threatTypeChart'), {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(typeCounts),
+            datasets: [{
+                label: 'Threat Types',
+                data: Object.values(typeCounts),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

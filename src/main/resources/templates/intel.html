@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Threat Intelligence | CyberShield AI</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           CYBERSHIELD AI
+           THREAT INTELLIGENCE PAGE
+           ===================================================== */
+
+        .intel-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+
+        .intel-brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            background: #eef5ff;
+
+            border: 1px solid #dbe8ff;
+
+            border-radius: 11px;
+
+            font-size: 21px;
+        }
+
+
+        .intel-brand-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+
+        .intel-brand-text span {
+            color: #2563eb;
+        }
+
+
+        .intel-nav-label {
+            margin: 0 0 10px 10px;
+
+            color: #98a2b3;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        .intel-nav-link {
+            display: flex !important;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .intel-nav-icon {
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+           ===================================================== */
+
+        .intel-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .intel-header-left h1 {
+            margin: 0;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color: #172033;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .intel-header-left p {
+            margin: 8px 0 0;
+
+            color: #667085;
+
+            font-size: 14px;
+        }
+
+
+        .intel-status {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 10px 15px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e8f0;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 12px rgba(25, 40, 70, 0.04);
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #344054;
+        }
+
+
+        .intel-status-dot {
+            width: 9px;
+
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #16a36a;
+
+            box-shadow:
+                0 0 0 4px #ecfdf3;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
+        .back-dashboard {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+
+            padding: 9px 13px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e8f0;
+
+            border-radius: 8px;
+
+            color: #526078;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .back-dashboard:hover {
+            background: #eef5ff;
+
+            border-color: #dbe8ff;
+
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           SUMMARY CARDS
+           ===================================================== */
+
+        .intel-summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .intel-summary-card {
+            background: #ffffff;
+
+            border: 1px solid #e5e9f0;
+
+            border-radius: 13px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 3px 12px rgba(25, 40, 70, 0.04);
+
+            transition: 0.2s;
+        }
+
+
+        .intel-summary-card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 18px rgba(25, 40, 70, 0.08);
+        }
+
+
+        .intel-summary-icon {
+            width: 40px;
+
+            height: 40px;
+
+            display: grid;
+
+            place-items: center;
+
+            background: #eef5ff;
+
+            border-radius: 9px;
+
+            font-size: 18px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .intel-summary-value {
+            display: block;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #172033;
+
+            margin-bottom: 5px;
+        }
+
+
+        .intel-summary-label {
+            color: #667085;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           TABLE HEADER
+           ===================================================== */
+
+        .intel-table-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .intel-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .intel-title-icon {
+            width: 35px;
+
+            height: 35px;
+
+            display: grid;
+
+            place-items: center;
+
+            background: #f1f5f9;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+
+        .intel-title h2 {
+            margin: 0;
+
+            color: #172033;
+
+            font-size: 20px;
+        }
+
+
+        .intel-record-count {
+            padding: 6px 10px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e9f0;
+
+            border-radius: 6px;
+
+            color: #667085;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           BADGES
+           ===================================================== */
+
+        .intel-type {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            background: #f1f5f9;
+
+            border-radius: 5px;
+
+            color: #526078;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: .3px;
+        }
+
+
+        .intel-source {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            background: #eef5ff;
+
+            border-radius: 5px;
+
+            color: #2563eb;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .intel-indicator {
+            color: #172033;
+
+            font-family: Consolas, monospace;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .severity-badge {
+            display: inline-block;
+
+            padding: 5px 8px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: .3px;
+        }
+
+
+        .severity-critical {
+            color: #b42318;
+
+            background: #fef3f2;
+        }
+
+
+        .severity-high {
+            color: #c4320a;
+
+            background: #fff4ed;
+        }
+
+
+        .severity-medium {
+            color: #a15c00;
+
+            background: #fffaeb;
+        }
+
+
+        .severity-low {
+            color: #087443;
+
+            background: #ecfdf3;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        .intel-description {
+            color: #667085;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .intel-footer {
+            text-align: center;
+
+            color: #98a2b3;
+
+            font-size: 11px;
+
+            padding: 10px 0 25px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .intel-summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .intel-header {
+                flex-direction: column;
+            }
+
+            .intel-status {
+                align-self: flex-start;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .intel-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .intel-header-left h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<aside>
+
+
+    <div class="intel-brand">
+
+        <div class="intel-brand-icon">
+            🛡️
+        </div>
+
+        <div class="intel-brand-text">
+            CyberShield <span>AI</span>
+        </div>
+
+    </div>
+
+
+    <p class="intel-nav-label">
+        Security Center
+    </p>
+
+
+    <a href="/"
+       class="intel-nav-link">
+
+        <span class="intel-nav-icon">
+            📊
+        </span>
+
+        <span>
+            Dashboard
+        </span>
+
+    </a>
+
+
+    <a href="/admin/intel"
+       class="intel-nav-link">
+
+        <span class="intel-nav-icon">
+            🛡️
+        </span>
+
+        <span>
+            Threat Intelligence
+        </span>
+
+    </a>
+
+
+    <a href="/#upload"
+       class="intel-nav-link">
+
+        <span class="intel-nav-icon">
+            📁
+        </span>
+
+        <span>
+            Data Ingestion
+        </span>
+
+    </a>
+
+
+    <p class="intel-nav-label"
+       style="margin-top:30px;">
+
+        Monitoring
+
+    </p>
+
+
+    <a href="/#alerts"
+       class="intel-nav-link">
+
+        <span class="intel-nav-icon">
+            🚨
+        </span>
+
+        <span>
+            Threat Alerts
+        </span>
+
+    </a>
+
+
+    <a href="/#logs"
+       class="intel-nav-link">
+
+        <span class="intel-nav-icon">
+            📋
+        </span>
+
+        <span>
+            Security Logs
+        </span>
+
+    </a>
+
+
+    <!-- LOGOUT -->
+
+    <form method="post"
+          action="/logout">
+
+        <input type="hidden"
+               name="_csrf"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+
+        <button class="logout"
+                type="submit">
+
+            ⇥ &nbsp; Logout
+
+        </button>
+
+    </form>
+
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main>
+
+
+    <!-- PAGE HEADER -->
+
+    <header class="intel-header">
+
+
+        <div class="intel-header-left">
+
+            <h1>
+                Threat Intelligence
+            </h1>
+
+            <p>
+                Local indicators used by the CyberShield AI threat detection engine
+            </p>
+
+        </div>
+
+
+        <div class="intel-status">
+
+            <span class="intel-status-dot"></span>
+
+            Intelligence System Online
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- BACK TO DASHBOARD -->
+
+    <a href="/"
+       class="back-dashboard">
+
+        ←
+
+        <span>
+            Back to Dashboard
+        </span>
+
+    </a>
+
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+         ===================================================== -->
+
+    <section class="intel-summary">
+
+
+        <div class="intel-summary-card">
+
+            <div class="intel-summary-icon">
+                🔎
+            </div>
+
+            <span class="intel-summary-value"
+                  th:text="${items.size()}">
+
+                0
+
+            </span>
+
+            <span class="intel-summary-label">
+
+                Threat Indicators
+
+            </span>
+
+        </div>
+
+
+
+        <div class="intel-summary-card">
+
+            <div class="intel-summary-icon">
+                💾
+            </div>
+
+            <span class="intel-summary-value">
+                LOCAL
+            </span>
+
+            <span class="intel-summary-label">
+
+                Intelligence Source
+
+            </span>
+
+        </div>
+
+
+
+        <div class="intel-summary-card">
+
+            <div class="intel-summary-icon">
+                🤖
+            </div>
+
+            <span class="intel-summary-value">
+                AI
+            </span>
+
+            <span class="intel-summary-label">
+
+                Detection Engine
+
+            </span>
+
+        </div>
+
+
+
+        <div class="intel-summary-card">
+
+            <div class="intel-summary-icon">
+                🔐
+            </div>
+
+            <span class="intel-summary-value">
+                OFFLINE
+            </span>
+
+            <span class="intel-summary-label">
+
+                Intelligence Mode
+
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         THREAT INTELLIGENCE TABLE
+         ===================================================== -->
+
+    <section class="panel">
+
+
+        <div class="intel-table-header">
+
+
+            <div class="intel-title">
+
+
+                <div class="intel-title-icon">
+                    🛡️
+                </div>
+
+
+                <h2>
+                    Intelligence Indicators
+                </h2>
+
+
+            </div>
+
+
+            <span class="intel-record-count">
+
+                Local Dataset
+
+            </span>
+
+
+        </div>
+
+
+
+        <div class="table">
+
+
+            <table>
+
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        Indicator
+                    </th>
+
+                    <th>
+                        Type
+                    </th>
+
+                    <th>
+                        Severity
+                    </th>
+
+                    <th>
+                        Source
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                <tr th:each="i : ${items}">
+
+
+                    <!-- INDICATOR -->
+
+                    <td>
+
+                        <span class="intel-indicator"
+                              th:text="${i.indicator}">
+
+                            powershell
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- TYPE -->
+
+                    <td>
+
+                        <span class="intel-type"
+                              th:text="${i.indicatorType}">
+
+                            COMMAND
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- SEVERITY -->
+
+                    <td>
+
+                        <!-- CRITICAL -->
+
+                        <span th:if="${i.severity == 'CRITICAL'}"
+                              class="severity-badge severity-critical"
+                              th:text="${i.severity}">
+
+                            CRITICAL
+
+                        </span>
+
+
+                        <!-- HIGH -->
+
+                        <span th:if="${i.severity == 'HIGH'}"
+                              class="severity-badge severity-high"
+                              th:text="${i.severity}">
+
+                            HIGH
+
+                        </span>
+
+
+                        <!-- MEDIUM -->
+
+                        <span th:if="${i.severity == 'MEDIUM'}"
+                              class="severity-badge severity-medium"
+                              th:text="${i.severity}">
+
+                            MEDIUM
+
+                        </span>
+
+
+                        <!-- LOW -->
+
+                        <span th:if="${i.severity == 'LOW'}"
+                              class="severity-badge severity-low"
+                              th:text="${i.severity}">
+
+                            LOW
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- SOURCE -->
+
+                    <td>
+
+                        <span class="intel-source"
+                              th:text="${i.source}">
+
+                            LOCAL-DATASET
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <td>
+
+                        <span class="intel-description"
+                              th:text="${i.description}">
+
+                            Local demo indicator
+
+                        </span>
+
+                    </td>
+
+
+                </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="intel-footer">
+
+        CyberShield AI
+        •
+        Offline Threat Intelligence
+        •
+        Local Security Analytics
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

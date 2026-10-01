@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Access Denied | CyberShield AI</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+    <style>
+
+        /* =====================================================
+           CYBERSHIELD AI
+           ACCESS DENIED PAGE
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+
+        .access-page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+            background: #f5f7fb;
+
+        }
+
+
+        .access-card {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e8f0;
+
+            border-radius: 16px;
+
+            padding: 45px 40px;
+
+            text-align: center;
+
+            box-shadow:
+                0 12px 40px rgba(25, 40, 70, 0.08);
+
+        }
+
+
+        /* =====================================================
+           SECURITY ICON
+           ===================================================== */
+
+        .access-icon {
+
+            width: 82px;
+
+            height: 82px;
+
+            margin: 0 auto 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #fef3f2;
+
+            border: 1px solid #fecdca;
+
+            font-size: 36px;
+
+        }
+
+
+        /* =====================================================
+           ERROR CODE
+           ===================================================== */
+
+        .access-code {
+
+            display: inline-block;
+
+            margin-bottom: 12px;
+
+            padding: 6px 12px;
+
+            border-radius: 6px;
+
+            background: #fef3f2;
+
+            color: #b42318;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        /* =====================================================
+           TITLE
+           ===================================================== */
+
+        .access-card h1 {
+
+            margin: 0;
+
+            color: #172033;
+
+            font-size: 29px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        .access-description {
+
+            margin: 14px auto 0;
+
+            max-width: 420px;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           INFORMATION BOX
+           ===================================================== */
+
+        .access-info {
+
+            margin-top: 25px;
+
+            padding: 17px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e9f0;
+
+            border-radius: 10px;
+
+            text-align: left;
+
+        }
+
+
+        .access-info-title {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #344054;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .access-info-text {
+
+            display: block;
+
+            color: #667085;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           RETURN BUTTON
+           ===================================================== */
+
+        .back-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 21px;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: all 0.2s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           SECURITY FOOTER
+           ===================================================== */
+
+        .security-note {
+
+            margin-top: 25px;
+
+            color: #98a2b3;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 500px) {
+
+            .access-page {
+
+                padding: 15px;
+
+            }
+
+
+            .access-card {
+
+                padding: 35px 25px;
+
+            }
+
+
+            .access-icon {
+
+                width: 70px;
+
+                height: 70px;
+
+                font-size: 30px;
+
+            }
+
+
+            .access-card h1 {
+
+                font-size: 24px;
+
+            }
+
+
+            .access-description {
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     ACCESS DENIED PAGE
+     ========================================================= -->
+
+<div class="access-page">
+
+
+    <div class="access-card">
+
+
+        <!-- SECURITY ICON -->
+
+        <div class="access-icon">
+
+            🔒
+
+        </div>
+
+
+        <!-- ERROR CODE -->
+
+        <span class="access-code">
+
+            ERROR 403
+
+        </span>
+
+
+        <!-- TITLE -->
+
+        <h1>
+
+            Access Denied
+
+        </h1>
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="access-description">
+
+            You do not have permission to access this
+            security operation. Your current account role
+            does not include the required administrative
+            privileges.
+
+        </p>
+
+
+        <!-- INFORMATION BOX -->
+
+        <div class="access-info">
+
+
+            <span class="access-info-title">
+
+                🔐 Restricted Security Operation
+
+            </span>
+
+
+            <span class="access-info-text">
+
+                This resource is available only to authorized
+                administrators. Contact a system administrator
+                if you believe you should have access.
+
+            </span>
+
+
+        </div>
+
+
+        <!-- RETURN BUTTON -->
+
+        <a href="/"
+           class="back-button">
+
+            ← Return to Dashboard
+
+        </a>
+
+
+        <!-- SECURITY NOTE -->
+
+        <div class="security-note">
+
+            CyberShield AI
+            •
+            Role-Based Access Control
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

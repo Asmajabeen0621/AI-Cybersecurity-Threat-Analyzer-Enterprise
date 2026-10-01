@@ -1,0 +1,16 @@
+failedAttempts,phishingScore,malwareScore,intelMatch,label
+0,0,0,0,LOW
+1,0,0,0,LOW
+2,0,0,0,LOW
+3,1,0,0,MEDIUM
+4,2,0,0,MEDIUM
+5,2,0,1,HIGH
+6,0,1,0,HIGH
+2,3,0,0,MEDIUM
+1,4,0,0,HIGH
+0,0,2,0,HIGH
+2,0,2,1,CRITICAL
+7,0,3,1,CRITICAL
+5,3,1,1,CRITICAL
+8,0,0,0,HIGH
+0,5,0,1,HIGH
